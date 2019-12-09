@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-nativ
 import TaskItem from './components/TaskItem';
 import HeaderItem from './components/HeaderItem';
 import TaskInput from './components/TaskInput';
-import { setRecoveryProps } from 'expo/build/ErrorRecovery/ErrorRecovery';
 
 export default function App() {
   const [taskInList, setTaskInList] = useState([]);
