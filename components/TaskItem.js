@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 const TaskItem = props => {
   return (
-    <View style={styles.tasksItem}>
-      <Text style={styles.tasksText}>{props.text}</Text>
-    </View>
+    <TouchableOpacity activeOpacity={.5} onPress={props.onDelete.bind(this, props.id)}>
+      <View style={styles.tasksItem}>
+        <Text style={styles.tasksText}>{props.text}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

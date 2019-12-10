@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
+
 import TaskItem from './components/TaskItem';
 import HeaderItem from './components/HeaderItem';
 import TaskInput from './components/TaskInput';
 
 export default function App() {
   const [taskInList, setTaskInList] = useState([]);
+ 
   const outputAddTask = taskTitle => {
     setTaskInList(currentTask => [...currentTask, {id: Math.random().toString(), value: taskTitle}]);
-  }
+  };
+  const deleteTask = taskId => {
+    setTaskInList(currentTask => {
+      return currentTask.filter((task) => task.id !== taskId);
+    })
+  };
 
   return (
     <View style={styles.container}>
       <HeaderItem title="ToDo List" />
-      <TaskInput qwerty={outputAddTask} />
+      <TaskInput addTask={outputAddTask} />
       <View style={styles.tasksView}>
         <FlatList
           keyExtractor={(item, index) => item.id}
           data={taskInList}
-          renderItem={itemData => <TaskItem text={itemData.item.value} />} />
+          renderItem={itemData => <TaskItem onDelete={deleteTask} id={itemData.item.id} text={itemData.item.value} />} />
       </View>
     </View>
   );

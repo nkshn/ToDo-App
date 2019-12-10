@@ -8,7 +8,7 @@ const TaskInput = props => {
   return (
     <View style={styles.inputView}>
       <TextInput placeholder="Enter Task" style={styles.textInput} onChangeText = {getTask} />
-      <Button title="Add Task" style={styles.buttonAdd} onPress={() => props.qwerty(enteredTask)} />
+      <Button title="Add Task" style={styles.buttonAdd} onPress={() => props.addTask(enteredTask)} />
     </View>
   );
 };
