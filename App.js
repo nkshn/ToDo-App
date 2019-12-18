@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Button, TextInput } from 'react-native';
 
 import TaskItem from './components/TaskItem';
 import HeaderItem from './components/HeaderItem';
@@ -7,7 +7,8 @@ import TaskInput from './components/TaskInput';
 
 export default function App() {
   const [taskInList, setTaskInList] = useState([]);
- 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const outputAddTask = taskTitle => {
     setTaskInList(currentTask => [...currentTask, {id: Math.random().toString(), value: taskTitle}]);
   };
@@ -20,12 +21,13 @@ export default function App() {
   return (
     <View style={styles.container}>
       <HeaderItem title="ToDo List" />
-      <TaskInput addTask={outputAddTask} />
+      <Button title="Plusik" color="purple" onPress={() => {setModalVisible(true)}} />
+      <TaskInput visible={modalVisible} addTask={outputAddTask} />
       <View style={styles.tasksView}>
         <FlatList
           keyExtractor={(item, index) => item.id}
           data={taskInList}
-          renderItem={itemData => <TaskItem onDelete={deleteTask} id={itemData.item.id} text={itemData.item.value} />} />
+          renderItem={itemData => <TaskItem onDelete={deleteTask} id={itemData.item.id} text={itemData.item.value}/>} />
       </View>
     </View>
   );
@@ -39,8 +41,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#4a4e4d',
   },
   tasksView: {
-    marginTop: 15,
     flex: 1,
+    marginTop: 15,
     justifyContent: "flex-start",
     alignContent: "center",
   },
