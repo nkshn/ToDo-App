@@ -4,13 +4,20 @@ import { Modal, Button, TextInput, View, StyleSheet } from 'react-native';
 const TaskInput = props => {
   const [enteredTask, setEnteredTask] = useState('');
   const getTask = (enteredTask) => { setEnteredTask(enteredTask); }
+  
+  const addTaskHander = () => {
+    props.addTask(enteredTask);
+    setEnteredTask('');
+  }
 
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.inputView}>
         <TextInput placeholder="Enter Task" style={styles.textInput} onChangeText = {getTask} />
-        <Button title="Add Task" color="green" style={styles.buttonAdd} onPress={() => props.addTask(enteredTask)} />
-        <Button title="Close" color="red" style={styles.buttonClose}/>
+        <View style={styles.buttonsView}>
+          <View style={{width: '40%'}}><Button title="Add Task" color="green" onPress={addTaskHander} /></View>
+          <View style={{width: '40%'}}><Button title="Close" color="red" onPress={props.cancelBtn} /></View>
+        </View>
       </View>
     </Modal>
   );
@@ -18,14 +25,13 @@ const TaskInput = props => {
 
 const styles = StyleSheet.create({
   inputView: {
-    // backgroundColor: 'red',
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
   textInput: {
-    flex: 1,
+    alignSelf: 'stretch',
     borderColor: '#fe8a71',
     borderBottomWidth: 1.5,
     paddingHorizontal: 5,
@@ -33,11 +39,14 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '200',
     color: '#fe8a71',
-    marginRight: 20,
-    width: 100,
+    marginHorizontal: 25,
+    marginBottom: 15,
   },
-  buttonAdd: {},
-  buttonClose: {},
+  buttonsView: {
+    width: '60%',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-around',
+  },
 });
 
 export default TaskInput;

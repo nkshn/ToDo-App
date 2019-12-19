@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList, Button, TextInput } from 'react-native';
+import { StyleSheet, View, FlatList, Button } from 'react-native';
 
 import TaskItem from './components/TaskItem';
 import HeaderItem from './components/HeaderItem';
@@ -9,25 +9,30 @@ export default function App() {
   const [taskInList, setTaskInList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const outputAddTask = taskTitle => {
+  const addTaskHandler = taskTitle => {
     setTaskInList(currentTask => [...currentTask, {id: Math.random().toString(), value: taskTitle}]);
+    setModalVisible(false);
   };
-  const deleteTask = taskId => {
+  const deleteTaskHandler = taskId => {
     setTaskInList(currentTask => {
       return currentTask.filter((task) => task.id !== taskId);
     })
   };
 
+  const cancelButtonCloseModal = () => {
+    setModalVisible(false);
+  }
+
   return (
     <View style={styles.container}>
       <HeaderItem title="ToDo List" />
       <Button title="Plusik" color="purple" onPress={() => {setModalVisible(true)}} />
-      <TaskInput visible={modalVisible} addTask={outputAddTask} />
+      <TaskInput visible={modalVisible} addTask={addTaskHandler} cancelBtn={cancelButtonCloseModal} />
       <View style={styles.tasksView}>
         <FlatList
           keyExtractor={(item, index) => item.id}
           data={taskInList}
-          renderItem={itemData => <TaskItem onDelete={deleteTask} id={itemData.item.id} text={itemData.item.value}/>} />
+          renderItem={itemData => <TaskItem onDelete={deleteTaskHandler} id={itemData.item.id} text={itemData.item.value}/>} />
       </View>
     </View>
   );
