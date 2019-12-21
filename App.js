@@ -10,6 +10,9 @@ export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
 
   const addTaskHandler = taskTitle => {
+    if(taskTitle == 0) {
+      return;
+    }
     setTaskInList(currentTask => [...currentTask, {id: Math.random().toString(), value: taskTitle}]);
     setModalVisible(false);
   };

@@ -25,8 +25,8 @@ const TaskInput = props => {
 
 const styles = StyleSheet.create({
   inputView: {
-    backgroundColor: 'grey',
     flex: 1,
+    backgroundColor: 'grey',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
