@@ -16,7 +16,7 @@ const TaskInput = props => {
         <TextInput placeholder="Enter Task" style={styles.textInput} onChangeText = {getTask} />
         <View style={styles.buttonsView}>
           <View style={{width: '40%'}}><Button title="Add Task" color="green" onPress={addTaskHander} /></View>
-          <View style={{width: '40%'}}><Button title="Close" color="red" onPress={props.cancelBtn} /></View>
+          <View style={{width: '40%'}}><Button title="Cancel" color="red" onPress={props.cancelBtn} /></View>
         </View>
       </View>
     </Modal>

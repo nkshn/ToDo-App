@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList, Button } from 'react-native';
+import { StyleSheet, View, FlatList, Button, Alert } from 'react-native';
 
 import TaskItem from './components/TaskItem';
 import HeaderItem from './components/HeaderItem';
@@ -11,6 +11,10 @@ export default function App() {
 
   const addTaskHandler = taskTitle => {
     if(taskTitle == 0) {
+      Alert.alert('Error!', 'You didn\'t enter a task! Enter a task text.',
+      [
+        {text: 'OK', style: 'destructive'}
+      ], {cancelable: false});
       return;
     }
     setTaskInList(currentTask => [...currentTask, {id: Math.random().toString(), value: taskTitle}]);
@@ -29,7 +33,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <HeaderItem title="ToDo List" />
-      <Button title="Plusik" color="purple" onPress={() => {setModalVisible(true)}} />
+      <Button title="Add Task" color="purple" onPress={() => {setModalVisible(true)}} />
       <TaskInput visible={modalVisible} addTask={addTaskHandler} cancelBtn={cancelButtonCloseModal} />
       <View style={styles.tasksView}>
         <FlatList
